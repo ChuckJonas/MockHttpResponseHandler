@@ -1,11 +1,12 @@
 # MockHttpResponseHandler
+
 An Apex a utility class to help test HTTP callouts (Salesforce)
 
 ## Install
 
 1. `git clone`
 1. `cd` into folder
-1. `sfdx force:mdapi:deploy -u [username] -d ./src -w 10000`
+1. `sfdx force:mdapi:deploy -d ./src -w 10000 -u [username]`
 
 ## Usage
 
@@ -40,29 +41,30 @@ While you can define your own response classes to respond in pretty much anyway 
 
     Test.setMock(HttpCalloutMock.class, mock);
     Test.startTest();
+        Http http = new Http();
         //send get
         HttpRequest req = new HttpRequest();
         req.setEndpoint(testEndpoint);
         req.setMethod('GET');
 
         HTTPResponse res = http.send(req);
-        System.assert(getResponse, res.getBody());
+        System.assertEquals(getResponse, res.getBody());
 
         //send post
-        HttpRequest req = new HttpRequest();
+        req = new HttpRequest();
         req.setEndpoint(testEndpoint);
         req.setMethod('POST');
 
-        HTTPResponse res = http.send(req);
-        System.assert(postResponse, res.getBody());
+        res = http.send(req);
+        System.assertEquals(postResponse, res.getBody());
 
         //send error
-        HttpRequest req = new HttpRequest();
+        req = new HttpRequest();
         req.setEndpoint(errorEndpoint);
         req.setMethod('GET');
 
-        HTTPResponse res = http.send(req);
-        System.assert(500, res.getStatusCode());
+        res = http.send(req);
+        System.assertEquals(500, res.getStatusCode());
 
     Test.stopTest();
 }
