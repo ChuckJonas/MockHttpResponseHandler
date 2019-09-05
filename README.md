@@ -97,4 +97,4 @@ If you need to call the same method & endpoint multiple times but return differe
 
 By default, query strings are ignored.  EG if you `addResponse('http://example.com', resp)`, it will return for `http://example.com?foo=1`.  If you want your response to target a specific query string, you can do so by setting `mock.ignoreQuery = false`.
 
-***NOTE***: if you need more dynamic handling of query string, leave ignore `ignoreQuery=true` and implement your own `IMockResponse`.
+***NOTE***: if you need more dynamic handling of query string, leave `ignoreQuery=false` and implement your own `IMockResponse`.
